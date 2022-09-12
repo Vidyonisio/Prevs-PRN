@@ -1,0 +1,29 @@
+Sub Gerar_Prevs.PRN()
+ Application.DisplayAlerts = False
+ Dim PTA As Workbook 'Pasta de Trabalho Atual'
+ Set PTA = Workbooks("Vazoes_Prevs.xlsm")
+ Dim InpSheet As Worksheet 'Planilha de Inputs'
+ Set InpSheet = PTA.Sheets("Por Subsistema")
+ Dim IntSheet As Worksheet 'Planilha Intermediária'
+ Set IntSheet = PTA.Sheets("Pra Montar o Prevs")
+ Dim lastRow As Variant
+ Dim LastColumn As Variant
+ Cam = ThisWorkbook.Path
+ InpSheet.Activate
+ lastRow = InpSheet.Range("Q4").End(xlDown).Row
+ InpSheet.Range(Cells(4, 17), Cells(lastRow, 17)).Copy
+ IntSheet.Range("B1").PasteSpecial xlPasteValues
+ IntSheet.Activate
+ lastRow = IntSheet.Range("A1").End(xlDown).Row
+ LastColumn = IntSheet.Range("A1").CurrentRegion.Columns.Count
+ IntSheet.Range(Cells(1, 1), Cells(lastRow, LastColumn)).Copy
+ Set NewBook = Workbooks.Add
+ Set Outsheet = NewBook.Sheets(1)
+ Outsheet.Range("A1").PasteSpecial xlPasteValues
+ Outsheet.Activate
+ Outsheet.Range(Cells(1, 1), Cells(lastRow, LastColumn)).NumberFormat = "#,##0"
+ NewBook.SaveAs Filename:=Cam & "\Prevs.prn", FileFormat:=xlTextPrinter
+ NewBook.Close
+ Application.DisplayAlerts = True
+ 
+End Sub
