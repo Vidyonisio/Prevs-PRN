@@ -1,4 +1,4 @@
-Sub Gerar_Prevs.PRN()
+Sub Gerar_Prevs_prn()
  Application.DisplayAlerts = False
  Dim PTA As Workbook 'Pasta de Trabalho Atual'
  Set PTA = Workbooks("Vazoes_Prevs.xlsm")
@@ -13,6 +13,8 @@ Sub Gerar_Prevs.PRN()
  lastRow = InpSheet.Range("Q4").End(xlDown).Row
  InpSheet.Range(Cells(4, 17), Cells(lastRow, 17)).Copy
  IntSheet.Range("B1").PasteSpecial xlPasteValues
+ InpSheet.Range(Cells(4, 1), Cells(lastRow, 1)).Copy
+ IntSheet.Range("A1").PasteSpecial xlPasteValues
  IntSheet.Activate
  lastRow = IntSheet.Range("A1").End(xlDown).Row
  LastColumn = IntSheet.Range("A1").CurrentRegion.Columns.Count
@@ -21,7 +23,7 @@ Sub Gerar_Prevs.PRN()
  Set Outsheet = NewBook.Sheets(1)
  Outsheet.Range("A1").PasteSpecial xlPasteValues
  Outsheet.Activate
- Outsheet.Range(Cells(1, 1), Cells(lastRow, LastColumn)).NumberFormat = "#,##0"
+ Outsheet.Range(Cells(1, 1), Cells(lastRow, LastColumn)).NumberFormat = "###0"
  NewBook.SaveAs Filename:=Cam & "\Prevs.prn", FileFormat:=xlTextPrinter
  NewBook.Close
  Application.DisplayAlerts = True
