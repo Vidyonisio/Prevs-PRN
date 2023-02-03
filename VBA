@@ -3,9 +3,9 @@ Sub Gerar_Prevs_prn()
  Dim PTA As Workbook 'Pasta de Trabalho Atual'
  Set PTA = Workbooks("Vazoes_Prevs.xlsm")
  Dim InpSheet As Worksheet 'Planilha de Inputs'
- Set InpSheet = PTA.Sheets("Por Subsistema")
+ Set InpSheet = PTA.Sheets("Plan de Inputs")
  Dim IntSheet As Worksheet 'Planilha Intermediária'
- Set IntSheet = PTA.Sheets("Pra Montar o Prevs")
+ Set IntSheet = PTA.Sheets("Plan Intermediária")
  Dim lastRow As Variant
  Dim LastColumn As Variant
  Cam = ThisWorkbook.Path
@@ -27,5 +27,6 @@ Sub Gerar_Prevs_prn()
  NewBook.SaveAs Filename:=Cam & "\Prevs.prn", FileFormat:=xlTextPrinter
  NewBook.Close
  Application.DisplayAlerts = True
- 
+ InpSheet.Activate
 End Sub
+
